@@ -2,9 +2,9 @@
   "name": "crud-students",
   "version": "1.0.0",
   "description": "A simple practice CRUD of students.",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon app.js"
   },
   "author": "",
   "license": "ISC",
@@ -15,5 +15,8 @@
     "express-async-errors": "^3.1.1",
     "mongodb": "^6.3.0",
     "mongoose": "^8.0.3"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.9"
   }
 }
