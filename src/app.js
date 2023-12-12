@@ -1,5 +1,8 @@
 require("dotenv").config();
 require("express-async-errors");
+const mongoose = require("mongoose");
+
+
 const express = require("express");
 const app = express();
 
@@ -10,17 +13,21 @@ app.use(express.json());
 
 // routes
 app.get("/", (req, res) => {
-  res.send("Students Crud");
+  res.send("University Crud");
 });
+
+// Routes
+app.use('/api')
 
 
 const port = process.env.PORT || 3000;
 
 const start = async () => {
   try {
-    app.listen(port, () =>
-      console.log(`Server is listening on port ${port}...`)
-    );
+    await mongoose.connect(process.env.MONGO_URI);
+    console.log("Database connected!");
+
+    app.listen(port, () => console.log(`Server running on port ${port}...`));
   } catch (error) {
     console.log(error);
   }
