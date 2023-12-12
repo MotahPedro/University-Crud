@@ -6,9 +6,26 @@ const CustomApiErrors = require('../errors')
 const register = async (req,res) => {
     const student = await Student.create(req.body);
 
-    return res
-      .status(StatusCodes.CREATED)
-      .json({
+    res.status(StatusCodes.CREATED).json({
         student: { _id: student._id, name: student.name, role: "student" },
       });
+}
+
+const login = async (req,res) =>{
+  const { email, password } = req.body;
+
+  if (!email || !password) {
+    throw new CustomApiErrors.BadRequestError("Please provide email and password");
+  }
+
+  const student = await Student.findOne({ email });
+  if (!student) {
+    throw new CustomApiErrors.UnauthenticatedError("Invalid Credentials");
+  }
+
+  const isPasswordCorrect = await student.comparePassword(password);
+  if (!isPasswordCorrect) {
+    throw new CustomApiErrors.UnauthenticatedError("Invalid Credentials");
+  }
+
 }
