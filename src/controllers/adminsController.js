@@ -44,3 +44,11 @@ const login = async (req, res) => {
       msg: "Logged in successfully",
     });
 };
+
+const logout = async (req, res) => {
+    res.clearCookie('token')
+
+    return res
+    .status(StatusCodes.OK)
+    .json({msg: 'User logged out!'})
+}
