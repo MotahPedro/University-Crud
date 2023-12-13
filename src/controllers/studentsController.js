@@ -1,6 +1,6 @@
 const Student = require('../models/studentsModel')
 const {StatusCodes} = require('http-status-codes')
-const CustomApiErrors = require('../errors')
+const CustomApiErrors = require('../errors/customApiErrors')
 const {createJwt, setResponseCookie} = require('../utils/jwtUtils')
 
 const register = async (req,res) => {
