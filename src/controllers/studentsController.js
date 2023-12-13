@@ -1,7 +1,7 @@
 const Student = require('../models/studentsModel')
 const {StatusCodes} = require('http-status-codes')
 const CustomApiErrors = require('../errors')
-
+const {createJwt, setResponseCookie} = require('../utils/jwtUtils')
 
 const register = async (req,res) => {
     const student = await Student.create(req.body);
@@ -28,4 +28,8 @@ const login = async (req,res) =>{
     throw new CustomApiErrors.UnauthenticatedError("Invalid Credentials");
   }
 
+  const token = (student, 'student')
+  setResponseCookie(token, res)
+
+  return res.status(StatusCodes.OK).json({ student: {_id: student._id, name: student.name, role: 'student'}, msg: 'Logged in successfully'})
 }
