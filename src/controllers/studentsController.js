@@ -33,3 +33,8 @@ const login = async (req,res) =>{
 
   return res.status(StatusCodes.OK).json({ student: {_id: student._id, name: student.name, role: 'student'}, msg: 'Logged in successfully'})
 }
+
+module.exports = {
+  register,
+  login,
+};

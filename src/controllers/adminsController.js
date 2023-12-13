@@ -52,3 +52,9 @@ const logout = async (req, res) => {
     .status(StatusCodes.OK)
     .json({msg: 'User logged out!'})
 }
+
+module.exports = {
+  register,
+  login,
+  logout
+};

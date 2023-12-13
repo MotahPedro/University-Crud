@@ -40,3 +40,8 @@ const login = async (req, res) => {
       msg: "Logged in successfully",
     });
 };
+
+module.exports = {
+    register,
+    login
+}
