@@ -28,7 +28,7 @@ const login = async (req,res) =>{
     throw new CustomApiErrors.UnauthenticatedError("Invalid Credentials");
   }
 
-  const token = (student, 'student')
+  const token = createJwt(student, 'student')
   setResponseCookie(token, res)
 
   return res.status(StatusCodes.OK).json({ student: {_id: student._id, name: student.name, role: 'student'}, msg: 'Logged in successfully'})
