@@ -36,7 +36,7 @@ const login = async (req, res) => {
   return res
     .status(StatusCodes.OK)
     .json({
-      student: { _id: student._id, name: student.name, role: "student" },
+      teacher: { _id: teacher._id, name: teacher.name, role: "teacher" },
       msg: "Logged in successfully",
     });
 };
