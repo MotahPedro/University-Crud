@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 
 /**
- * @typedef {'instructor' | 'student' | 'admin'} jwtRoles
+ * @typedef {'teacher' | 'student' | 'admin'} jwtRoles
  */
 
 /**
