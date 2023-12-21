@@ -53,8 +53,16 @@ const logout = async (req, res) => {
     .json({msg: 'User logged out!'})
 }
 
+const findAll = async (req, res) => {
+  const admins = await Admin.find({})
+  select('-password')
+
+  return res.status(StatusCodes.OK).json({admins})
+}
+
 module.exports = {
   register,
   login,
-  logout
+  logout,
+  findAll
 };
