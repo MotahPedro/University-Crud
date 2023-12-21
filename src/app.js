@@ -6,18 +6,21 @@ const mongoose = require("mongoose");
 const express = require("express");
 const app = express();
 
+const adminRoutes = require('./routes/adminsRoutes')
+
 // error handler
 
 app.use(express.json());
 // extra packages
 
-// routes
+// Main Route
 app.get("/", (req, res) => {
   res.send("University Crud");
 });
 
 // Routes
 app.use('/api')
+app.use("/api", adminRoutes);
 
 
 const port = process.env.PORT || 3000;
