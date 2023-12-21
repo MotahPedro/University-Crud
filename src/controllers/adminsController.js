@@ -4,9 +4,9 @@ const CustomApiErrors = require("../errors/customApiErrors");
 const { createJwt, setResponseCookie } = require("../utils/jwtUtils");
 
 const register = async (req, res) => {
-    if(req.body.key !== process.env.ADMIN_KEY) {
-        return CustomApiErrors.UnauthorizedError('Invalid admin key')
-    }
+  if (req.body.key !== process.env.ADMIN_KEY) {
+    return CustomApiErrors.UnauthorizedError("Invalid admin key");
+  }
 
   const admin = await Admin.create(req.body);
 
@@ -37,32 +37,39 @@ const login = async (req, res) => {
   const token = createJwt(admin, "admin");
   setResponseCookie(token, res);
 
-  return res
-    .status(StatusCodes.OK)
-    .json({
-      admin: { _id: admin._id, name: admin.name, role: "admin" },
-      msg: "Logged in successfully",
-    });
+  return res.status(StatusCodes.OK).json({
+    admin: { _id: admin._id, name: admin.name, role: "admin" },
+    msg: "Logged in successfully",
+  });
 };
 
 const logout = async (req, res) => {
-    res.clearCookie('token')
+  res.clearCookie("token");
 
-    return res
-    .status(StatusCodes.OK)
-    .json({msg: 'User logged out!'})
-}
+  return res.status(StatusCodes.OK).json({ msg: "User logged out!" });
+};
 
 const findAll = async (req, res) => {
-  const admins = await Admin.find({})
-  select('-password')
+  const admins = await Admin.find({});
+  select("-password");
 
-  return res.status(StatusCodes.OK).json({admins})
+  return res.status(StatusCodes.OK).json({ admins });
+};
+
+const findById = async (req, res) => {
+  const admin = await Admin.findById(req.params.id).select("-password");
+  if (!admin) {
+    throw new CustomApiErrors.NotFoundError(
+      `No item found with _id: ${req.params.id}`
+    );
+  }
+  return res.status(StatusCodes.OK).json({admin})
 }
 
 module.exports = {
   register,
   login,
   logout,
-  findAll
+  findAll,
+  findById,
 };
