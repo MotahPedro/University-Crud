@@ -7,6 +7,6 @@ const { logout } = require("../controllers/adminsController");
 
 teachersRouter.post('/auth/teacher/register', register)
 teachersRouter.post('/auth/teacher/login', login)
-teachersRouter.post('/auth/teacher/logout', logout)
+teachersRouter.get('/auth/teacher/logout', logout)
 
 module.exports = teachersRouter
