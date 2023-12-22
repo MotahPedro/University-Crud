@@ -7,7 +7,8 @@ A simple practice CRUD of students.
 ## Colaborators
 </summary>
 
-**Name: Pedro Henrique Mota** 
-**Name: Fábio Assunção Vitorino** 
+**Name: Pedro Henrique Mota**                       
+**Name: Fábio Assunção Vitorino**          
+**Name: Henrique de Fraia Paschoal**         
 
 </details>
