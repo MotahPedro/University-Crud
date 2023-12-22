@@ -2,7 +2,8 @@ const express = require('express')
 const teachersRouter = express.Router()
 
 
-const { register, login, logout} = require('../controllers/teachersController')
+const { register, login} = require('../controllers/teachersController')
+const { logout } = require("../controllers/adminsController");
 
 teachersRouter.post('/auth/teacher/register', register)
 teachersRouter.post('/auth/teacher/login', login)
