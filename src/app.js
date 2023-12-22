@@ -7,6 +7,8 @@ const express = require("express");
 const app = express();
 
 const adminRoutes = require('./routes/adminsRoutes')
+const studentRoutes = require('./routes/studentsRoutes')
+const teacherRoutes = require('./routes/teachersRoutes')
 
 // error handler
 
@@ -21,6 +23,8 @@ app.get("/", (req, res) => {
 // Routes
 app.use('/api')
 app.use("/api", adminRoutes);
+app.use("/api", teacherRoutes);
+app.use("/api", studentRoutes);
 
 
 const port = process.env.PORT || 3000;
