@@ -28,7 +28,7 @@ adminSchema.pre('save', async function () {
 })
 
 adminSchema.methods.comparePassword = async function (candidatePassword) {
-    const isMatch = await brypt.compare(candidatePassword, this.password)
+    const isMatch = await bcrypt.compare(candidatePassword, this.password)
     return isMatch
 }
 

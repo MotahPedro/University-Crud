@@ -1,10 +1,13 @@
 require("dotenv").config();
 require("express-async-errors");
 const mongoose = require("mongoose");
+const cookieParser = require('cookie-parser')
 
 
 const express = require("express");
 const app = express();
+
+app.use(cookieParser(process.env.JWT_SECRET))
 
 const adminRoutes = require('./routes/adminsRoutes')
 const studentRoutes = require('./routes/studentsRoutes')
@@ -21,7 +24,6 @@ app.get("/", (req, res) => {
 });
 
 // Routes
-app.use('/api')
 app.use("/api", adminRoutes);
 app.use("/api", teacherRoutes);
 app.use("/api", studentRoutes);
