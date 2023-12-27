@@ -57,7 +57,7 @@ const findAll = async (req, res) => {
 };
 
 const findById = async (req, res) => {
-  const admin = await Admin.findById(req.params.id).select("-password");
+  const admin = await Admin.findByIdAndUpdate(req.params.id).select("-password");
   if (!admin) {
     throw new CustomApiErrors.NotFoundError(
       `No item found with _id: ${req.params.id}`
@@ -66,10 +66,21 @@ const findById = async (req, res) => {
   return res.status(StatusCodes.OK).json({admin})
 }
 
+const updateById = async (req,res) =>{
+  const updateAdmin = await Admin.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+  }).select("-password");
+  if (!updateAdmin) {
+    throw new CustomApiErrors.NotFoundError(`No item found with _id: ${req.params.id}`)
+  }
+  return res.status(StatusCodes.OK).json({updateAdmin})
+}
+
 module.exports = {
   register,
   login,
   logout,
   findAll,
   findById,
+  updateById
 };
