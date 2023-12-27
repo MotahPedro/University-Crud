@@ -76,11 +76,25 @@ const updateById = async (req,res) =>{
   return res.status(StatusCodes.OK).json({updateAdmin})
 }
 
+const deleteById = async (req,res) => {
+  const admin = await Admin.findOneAndDelete(req.params.id)
+
+  if (!admin) {
+    throw new CustomApiErrors.NotFoundError(
+      `No item found with _id: ${req.params.id}`
+    );
+  }
+
+  return res.status(StatusCodes.OK).json({msg: 'Admin deleted successfully'})
+
+}
+
 module.exports = {
   register,
   login,
   logout,
   findAll,
   findById,
-  updateById
+  updateById,
+  deleteById
 };
