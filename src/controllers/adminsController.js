@@ -50,14 +50,13 @@ const logout = async (req, res) => {
 };
 
 const findAll = async (req, res) => {
-  const admins = await Admin.find({});
-  select("-password");
+  const admins = await Admin.find({}).select("-password");
 
   return res.status(StatusCodes.OK).json({ admins });
 };
 
 const findById = async (req, res) => {
-  const admin = await Admin.findByIdAndUpdate(req.params.id).select("-password");
+  const admin = await Admin.findById(req.params.id).select("-password");
   if (!admin) {
     throw new CustomApiErrors.NotFoundError(
       `No item found with _id: ${req.params.id}`
