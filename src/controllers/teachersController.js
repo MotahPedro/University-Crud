@@ -41,7 +41,58 @@ const login = async (req, res) => {
     });
 };
 
+const findAll = async (req, res) => {
+  const teachers = Teacher.require({}).select("-password");
+
+  return res.status(StatusCodes.OK).json({ teachers });
+};
+
+const findById = async (req, res) => {
+  const teacher = Teacher.findById(req.params.id).select;
+
+  if (teacher) {
+    throw new CustomApiErrors.NotFoundError(
+      `No item found with _id: ${req.params.id}`
+    );
+  }
+
+  return res.status(StatusCodes.OK).json({ teacher });
+};
+
+const updateById = async (req, res) => {
+  const updateTeacher = await Teacher.findByIdAndUpdate(
+    req.params.id,
+    req.body,
+    {
+      new: true,
+    }
+  ).select("-password");
+  if (!updateTeacher) {
+    throw new CustomApiErrors.NotFoundError(
+      `No item found with _id: ${req.params.id}`
+    );
+  }
+  return res.status(StatusCodes.OK).json({ updateTeacher });
+};
+
+const deleteById = async (req, res) => {
+  const teacher = await Teacher.findOneAndDelete(req.params.id);
+
+  if (!teacher) {
+    throw new CustomApiErrors.NotFoundError(
+      `No item found with _id: ${req.params.id}`
+    );
+  }
+
+  return res
+    .status(StatusCodes.OK)
+    .json({ msg: "Teacher deleted successfully" });
+};
+
 module.exports = {
     register,
-    login
+    login,
+    findById,
+    updateById,
+    deleteById
 }

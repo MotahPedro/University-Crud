@@ -35,8 +35,7 @@ const login = async (req,res) =>{
 }
 
 const findAll = async (req,res) => {
-  const students = Student.require({})
-  select("-password");
+  const students = Student.require({}).select("-password");
 
   return res.status(StatusCodes.OK).json({students})
 }
