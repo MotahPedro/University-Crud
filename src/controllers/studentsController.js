@@ -34,7 +34,55 @@ const login = async (req,res) =>{
   return res.status(StatusCodes.OK).json({ student: {_id: student._id, name: student.name, role: 'student'}, msg: 'Logged in successfully'})
 }
 
+const findAll = async (req,res) => {
+  const students = Student.require({})
+  select("-password");
+
+  return res.status(StatusCodes.OK).json({students})
+}
+
+const findById = async (req,res) => {
+  const student = Student.findById(req.params.id).select
+
+  if(student) {
+    throw new CustomApiErrors.NotFoundError(
+      `No item found with _id: ${req.params.id}`
+    );
+  }
+
+  return res.status(StatusCodes.OK).json({student})
+}
+
+const updateById = async (req, res) => {
+  const updateStudent = await Student.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+  }).select("-password");
+  if (!updateStudent) {
+    throw new CustomApiErrors.NotFoundError(
+      `No item found with _id: ${req.params.id}`
+    );
+  }
+  return res.status(StatusCodes.OK).json({ updateStudent });
+};
+
+const deleteById = async (req, res) => {
+  const student = await Student.findOneAndDelete(req.params.id);
+
+  if (!student) {
+    throw new CustomApiErrors.NotFoundError(
+      `No item found with _id: ${req.params.id}`
+    );
+  }
+
+  return res.status(StatusCodes.OK).json({ msg: "Student deleted successfully" });
+};
+
+
 module.exports = {
   register,
   login,
+  findAll,
+  findById,
+  updateById,
+  deleteById
 };
